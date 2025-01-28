@@ -1,13 +1,27 @@
-// Seleciona todos os inputs de dinheiro
-const inputsDinheiro = document.querySelectorAll('.input__dinheiro');
+document.addEventListener("DOMContentLoaded", () => {
+    // Seleciona todos os inputs de dinheiro
+    const dinheiroInputs = document.querySelectorAll(".input__dinheiro");
 
-// Aplica a formatação em cada input
-inputsDinheiro.forEach(input => {
-    input.addEventListener('input', function () {
-        let value = this.value.replace(/\D/g, ''); // Remove tudo que não for número
-        value = (value / 100).toFixed(2); // Divide por 100 e fixa 2 casas decimais
-        value = value.replace('.', ','); // Substitui ponto por vírgula
-        value = value.replace(/\B(?=(\d{3})+(?!\d))/g, '.'); // Adiciona pontos como separador de milhar
-        this.value = `R$ ${value}`;
+    // Função para formatar o valor como moeda
+    const formatarParaReais = (valor) => {
+        const numero = parseFloat(valor.replace(/[^\d]/g, "")) / 100;
+        if (isNaN(numero)) return "R$ 0,00";
+        return numero.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
+    };
+
+    // Adiciona o evento input em cada campo de dinheiro
+    dinheiroInputs.forEach((input) => {
+        input.addEventListener("input", (event) => {
+            const cursorPos = input.selectionStart; // Posição do cursor antes da alteração
+            const valorSemFormatacao = input.value.replace(/[^\d]/g, ""); // Remove caracteres não numéricos
+            input.value = formatarParaReais(valorSemFormatacao);
+            const diferenca = input.value.length - valorSemFormatacao.length; // Ajusta posição do cursor
+            input.setSelectionRange(cursorPos + diferenca, cursorPos + diferenca);
+        });
+
+        // Formata o valor inicial se necessário
+        input.addEventListener("blur", () => {
+            if (!input.value) input.value = "R$ 0,00";
+        });
     });
 });
