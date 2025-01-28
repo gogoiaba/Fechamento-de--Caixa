@@ -35,6 +35,7 @@ body {
 
 .titulo__pagina {
     font-size: 30px;
+    padding: 0.5em 0;
 }
 
 .grid__container {
@@ -57,14 +58,18 @@ body {
     width: 100%;
     padding: 0.7rem;
     font-size: 20px;
-    font-weight: 700;
+    font-weight: 400;
     border: 2px solid #333;
     border-radius: 5px;
     text-align: center;
 }
 
 .titulo__acumuladores, .titulo__somatotal, .titulo__diferenca {
-    padding-bottom: 0.8em;
+    padding-bottom: 0.6em;
+}
+
+.titulo__notas {
+    padding-top: 0.5em;
 }
 
 .titulo__moedas {
