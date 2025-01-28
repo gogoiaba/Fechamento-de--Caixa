@@ -4,24 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
-    <title>Três Colunas no Celular</title>
+    <title>Fechamento de Caixar</title>
 </head>
 <body>
-    <div class="container__basico">
+    <div class="container__basico container__h1">
         <h1 class="titulo__pagina titulo__basico">Fechamento de Caixa
         </h1>
     </div>
-    <div class="container__basico container__acumuladores">
-        <h2 class="titulo__acumuladores titulo__basico">Total Acumuladores
-        </h2>
-        <input type="tel" id="valor" name="valor" placeholder="R$ 0,00" class="input__dinheiro input__acumuladores">
-    </div>
+    
 
     <div class="container__basico">
-        <h2 class="titulo__numerario titulo__basico">Numerário</h2>
-
-                <!-- Espaço entre Notas e Moedas -->
-                <h2 class="titulo__numerario titulo__basico">Cédulas</h2>
+        <!-- <h2 class="titulo__numerario titulo__basico">Numerário</h2> -->
+        <h2 class="titulo__numerario titulo__basico titulo__notas">Cédulas</h2>
     
         <!-- Tabela de Contagem de Notas -->
         <table class="tabela__notas">
@@ -33,17 +27,17 @@
             </tr>
     
             <!-- Notas -->
-            <tr><td><img src="nota2.png" alt="Nota de 2" class="imagem__nota"></td><td><input type="text" class="input__dinheiro" placeholder="R$ 0,00"></td><td><input type="number" class="input__quantidade" placeholder="0"></td></tr>
-            <tr><td><img src="nota5.png" alt="Nota de 5" class="imagem__nota"></td><td><input type="text" class="input__dinheiro" placeholder="R$ 0,00"></td><td><input type="number" class="input__quantidade" placeholder="0"></td></tr>
-            <tr><td><img src="nota10.png" alt="Nota de 10" class="imagem__nota"></td><td><input type="text" class="input__dinheiro" placeholder="R$ 0,00"></td><td><input type="number" class="input__quantidade" placeholder="0"></td></tr>
-            <tr><td><img src="nota20.png" alt="Nota de 20" class="imagem__nota"></td><td><input type="text" class="input__dinheiro" placeholder="R$ 0,00"></td><td><input type="number" class="input__quantidade" placeholder="0"></td></tr>
-            <tr><td><img src="nota50.png" alt="Nota de 50" class="imagem__nota"></td><td><input type="text" class="input__dinheiro" placeholder="R$ 0,00"></td><td><input type="number" class="input__quantidade" placeholder="0"></td></tr>
-            <tr><td><img src="nota100.png" alt="Nota de 100" class="imagem__nota"></td><td><input type="text" class="input__dinheiro" placeholder="R$ 0,00"></td><td><input type="number" class="input__quantidade" placeholder="0"></td></tr>
-            <tr><td><img src="nota200.png" alt="Nota de 200" class="imagem__nota"></td><td><input type="text" class="input__dinheiro" placeholder="R$ 0,00"></td><td><input type="number" class="input__quantidade" placeholder="0"></td></tr>
+            <tr><td><img src="img/nota2.png" alt="Nota de 2" class="imagem__nota"></td><td><input type="text" class="input__dinheiro" placeholder="R$ 0,00"></td><td><input type="number" class="input__quantidade" placeholder="0"></td></tr>
+            <tr><td><img src="img/nota5.png" alt="Nota de 5" class="imagem__nota"></td><td><input type="text" class="input__dinheiro" placeholder="R$ 0,00"></td><td><input type="number" class="input__quantidade" placeholder="0"></td></tr>
+            <tr><td><img src="img/nota10.png" alt="Nota de 10" class="imagem__nota"></td><td><input type="text" class="input__dinheiro" placeholder="R$ 0,00"></td><td><input type="number" class="input__quantidade" placeholder="0"></td></tr>
+            <tr><td><img src="img/nota20.png" alt="Nota de 20" class="imagem__nota"></td><td><input type="text" class="input__dinheiro" placeholder="R$ 0,00"></td><td><input type="number" class="input__quantidade" placeholder="0"></td></tr>
+            <tr><td><img src="img/nota50.png" alt="Nota de 50" class="imagem__nota"></td><td><input type="text" class="input__dinheiro" placeholder="R$ 0,00"></td><td><input type="number" class="input__quantidade" placeholder="0"></td></tr>
+            <tr><td><img src="img/nota100.png" alt="Nota de 100" class="imagem__nota"></td><td><input type="text" class="input__dinheiro" placeholder="R$ 0,00"></td><td><input type="number" class="input__quantidade" placeholder="0"></td></tr>
+            <tr><td><img src="img/nota200.png" alt="Nota de 200" class="imagem__nota"></td><td><input type="text" class="input__dinheiro" placeholder="R$ 0,00"></td><td><input type="number" class="input__quantidade" placeholder="0"></td></tr>
         </table>
     
         <!-- Espaço entre Notas e Moedas -->
-        <h2 class="titulo__numerario titulo__basico">Moedas</h2>
+        <h2 class="titulo__numerario titulo__basico titulo__moedas">Moedas</h2>
     
         <!-- Tabela de Contagem de Moedas -->
         <table class="tabela__moedas">
@@ -55,15 +49,28 @@
             </tr>
     
             <!-- Moedas -->
-            <tr><td><img src="moeda5cent.png" alt="Moeda de 5 centavos" class="imagem__nota"></td><td><input type="text" class="input__dinheiro" placeholder="R$ 0,00"></td><td><input type="number" class="input__quantidade" placeholder="0"></td></tr>
-            <tr><td><img src="moeda10cent.png" alt="Moeda de 10 centavos" class="imagem__nota"></td><td><input type="text" class="input__dinheiro" placeholder="R$ 0,00"></td><td><input type="number" class="input__quantidade" placeholder="0"></td></tr>
-            <tr><td><img src="moeda25cent.png" alt="Moeda de 25 centavos" class="imagem__nota"></td><td><input type="text" class="input__dinheiro" placeholder="R$ 0,00"></td><td><input type="number" class="input__quantidade" placeholder="0"></td></tr>
-            <tr><td><img src="moeda50cent.png" alt="Moeda de 50 centavos" class="imagem__nota"></td><td><input type="text" class="input__dinheiro" placeholder="R$ 0,00"></td><td><input type="number" class="input__quantidade" placeholder="0"></td></tr>
-            <tr><td><img src="moeda1real.png" alt="Moeda de 1 real" class="imagem__nota"></td><td><input type="text" class="input__dinheiro" placeholder="R$ 0,00"></td><td><input type="number" class="input__quantidade" placeholder="0"></td></tr>
+            <tr><td><img src="img/moeda5.png" alt="Moeda de 5 centavos" class="imagem__moeda"></td><td><input type="text" class="input__dinheiro" placeholder="R$ 0,00"></td><td><input type="number" class="input__quantidade" placeholder="0"></td></tr>
+            <tr><td><img src="img/moeda10.png" alt="Moeda de 10 centavos" class="imagem__moeda"></td><td><input type="text" class="input__dinheiro" placeholder="R$ 0,00"></td><td><input type="number" class="input__quantidade" placeholder="0"></td></tr>
+            <tr><td><img src="img/moeda25.png" alt="Moeda de 25 centavos" class="imagem__moeda"></td><td><input type="text" class="input__dinheiro" placeholder="R$ 0,00"></td><td><input type="number" class="input__quantidade" placeholder="0"></td></tr>
+            <tr><td><img src="img/moeda50.png" alt="Moeda de 50 centavos" class="imagem__moeda"></td><td><input type="text" class="input__dinheiro" placeholder="R$ 0,00"></td><td><input type="number" class="input__quantidade" placeholder="0"></td></tr>
+            <tr><td><img src="img/moeda1.png" alt="Moeda de 1 real" class="imagem__moeda"></td><td><input type="text" class="input__dinheiro" placeholder="R$ 0,00"></td><td><input type="number" class="input__quantidade" placeholder="0"></td></tr>
         </table>
     </div>
-    
 
-    <script src="app.js"></script>
-</body>
-</html>
+    <div class="container__basico container__somatotal">
+        <h2 class="titulo__somatotal titulo__basico">Soma Total
+        </h2>
+        <input type="tel" id="valor" name="valor" placeholder="R$ 0,00" class="input__dinheiro input__somatotal">
+    </div>
+
+    <div class="container__basico container__acumuladores">
+        <h2 class="titulo__acumuladores titulo__basico">Total Acumuladores
+        </h2>
+        <input type="tel" id="valor" name="valor" placeholder="R$ 0,00" class="input__dinheiro input__acumuladores">
+    </div>
+
+    <div class="container__basico container__diferenca">
+        <h2 class="titulo__diferenca titulo__basico">Diferença
+        </h2>
+        <input type="tel" id="valor" name="valor" placeholder="R$ 0,00" class="input__dinheiro input__diferenca">
+    </div>
