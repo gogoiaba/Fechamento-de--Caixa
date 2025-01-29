@@ -130,4 +130,21 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     };
     
+    const limparCampos = () => {
+        dinheiroInputs.forEach(input => input.value = "R$ 0,00");
+        quantidadeInputs.forEach(input => input.value = "0");
+        somaTotalInput.value = "R$ 0,00";
+        acumuladoresInput.value = "R$ 0,00";
+        diferencaInput.value = "R$ 0,00";
+
+        // Remove as classes de invalidez se houver
+        dinheiroInputs.forEach(input => input.classList.remove("valor-invalido"));
+        quantidadeInputs.forEach(input => input.classList.remove("quantidade-invalida"));
+    };
+
+    // Adiciona evento ao botão "Limpar"
+    const botaoLimpar = document.getElementById("limpar");
+    botaoLimpar.addEventListener("click", () => {
+        limparCampos();
+    });
 });

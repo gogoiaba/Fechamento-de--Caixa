@@ -144,4 +144,21 @@ body {
     border: 2px solid #ff0000; /* Vermelho forte */
 }
 
+.container__limpar {
+    margin-top: 1em;
+    text-align: center;
+}
+
+.botao__limpar {
+    background-color: #white; /* Vermelho claro */
+    color: black;
+    padding: 0.7rem 1.5rem;
+    border: solid 2px black;
+    border-radius: 5px;
+    font-size: 18px;
+    transition: background-color 0.3s;
+    width: 100%;
+}
+
+
 
