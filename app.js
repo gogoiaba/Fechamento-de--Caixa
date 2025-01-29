@@ -123,8 +123,17 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    // Adiciona evento para atualizar a quantidade ao digitar o valor
+    // Adiciona eventos de focus e blur para os inputs de valor
     dinheiroInputs.forEach((input, index) => {
+        input.addEventListener("focus", () => {
+            if (input.value === "R$ 0,00") input.value = ""; // Limpa se o valor for o placeholder inicial
+        });
+
+        input.addEventListener("blur", () => {
+            if (input.value === "") input.value = "R$ 0,00"; // Reverte ao placeholder inicial se vazio
+        });
+
+        // Adiciona evento para atualizar a quantidade ao digitar o valor
         input.addEventListener("input", () => {
             const cursorPos = input.selectionStart; // Posição do cursor antes da alteração
             const valorSemFormatacao = input.value.replace(/[^\d]/g, ""); // Remove caracteres não numéricos
@@ -154,13 +163,4 @@ document.addEventListener("DOMContentLoaded", () => {
         const valorSemFormatacao = acumuladoresInput.value.replace(/[^\d]/g, ""); // Remove caracteres não numéricos
         acumuladoresInput.value = formatarParaReais(valorSemFormatacao);
         const diferenca = acumuladoresInput.value.length - valorSemFormatacao.length; // Ajusta posição do cursor
-        acumuladoresInput.setSelectionRange(cursorPos + diferenca, cursorPos + diferenca);
-
-        atualizarDiferenca(); // Atualiza a diferença
-    });
-
-    // Formata o acumulador inicial se necessário
-    acumuladoresInput.addEventListener("blur", () => {
-        if (!acumuladoresInput.value) acumuladoresInput.value = "R$ 0,00";
-    });
-});
+        acumuladoresInput
