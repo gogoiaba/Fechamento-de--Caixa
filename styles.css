@@ -127,3 +127,13 @@ body {
 .container__somatotal, .container__acumuladores, .container__diferenca {
     padding-bottom: 0.6em;
 }
+
+.diferenca-negativa {
+    background-color: #ffcccb; /* Vermelho claro */
+    border: 2px solid #ff0000; /* Vermelho forte */
+}
+
+.diferenca-positiva {
+    background-color: #ccffcc; /* Verde claro */
+    border: 2px solid #00ff00; /* Verde forte */
+}

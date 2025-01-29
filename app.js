@@ -47,14 +47,25 @@ document.addEventListener("DOMContentLoaded", () => {
         atualizarDiferenca(); // Atualiza a diferença
     };
 
-    // Atualiza a diferença entre soma total e acumuladores
     const atualizarDiferenca = () => {
         const somaTotalCentavos = parseInt(somaTotalInput.value.replace(/[^\d]/g, ""), 10) || 0; // Soma Total em centavos
         const acumuladoresCentavos = parseInt(acumuladoresInput.value.replace(/[^\d]/g, ""), 10) || 0; // Saldo contábil em centavos
-
+    
         const diferencaCentavos = somaTotalCentavos - acumuladoresCentavos; // Calcula a diferença
         const negativo = diferencaCentavos < 0; // Verifica se é negativo
+        const positivo = diferencaCentavos > 0; // Verifica se é positivo
+    
         diferencaInput.value = formatarParaReais(Math.abs(diferencaCentavos).toString(), negativo); // Atualiza o campo de diferença
+    
+        // Remove todas as classes de cor
+        diferencaInput.classList.remove("diferenca-negativa", "diferenca-positiva");
+    
+        // Aplica a classe CSS apropriada
+        if (negativo) {
+            diferencaInput.classList.add("diferenca-negativa");
+        } else if (positivo) {
+            diferencaInput.classList.add("diferenca-positiva");
+        }
     };
 
     // Adiciona evento para atualizar a quantidade ao digitar o valor
