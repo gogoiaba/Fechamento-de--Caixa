@@ -17,6 +17,7 @@ document.addEventListener("DOMContentLoaded", () => {
         return negativo ? `- ${resultado}` : resultado;
     };
 
+    // Atualiza a quantidade com base no valor
     const atualizarQuantidade = (valor, indice) => {
         let valorCentavos = parseInt(valor.replace(/[^\d]/g, ""), 10) || 0; // Valor em centavos
         if (valorCentavos < 0) valorCentavos = 0; // Impede valores negativos
@@ -24,7 +25,8 @@ document.addEventListener("DOMContentLoaded", () => {
         atualizarSomaTotal(); // Atualiza a soma total
         validarValor(valor, indice); // Valida o valor
     };
-    
+
+    // Atualiza o valor com base na quantidade
     const atualizarValor = (quantidade, indice) => {
         let quantidadeNumerica = parseInt(quantidade, 10) || 0; // Quantidade como inteiro
         if (quantidadeNumerica < 0) quantidadeNumerica = 0; // Impede valores negativos
@@ -33,9 +35,23 @@ document.addEventListener("DOMContentLoaded", () => {
         atualizarSomaTotal(); // Atualiza a soma total
         validarValor(dinheiroInputs[indice].value, indice); // Valida o valor
     };
-    
 
-    
+    // Valida se o valor é possível com a quantidade de notas
+    const validarValor = (valor, indice) => {
+        const valorCentavos = parseInt(valor.replace(/[^\d]/g, ""), 10) || 0; // Valor em centavos
+        const quantidade = parseInt(quantidadeInputs[indice].value, 10) || 0; // Quantidade
+        const valorCalculado = quantidade * valores[indice]; // Valor total calculado em centavos
+
+        // Remove as classes de invalidez antes de qualquer coisa
+        dinheiroInputs[indice].classList.remove("valor-invalido");
+        quantidadeInputs[indice].classList.remove("quantidade-invalida");
+
+        // Verifica se o valor é possível com a quantidade
+        if (valorCentavos !== valorCalculado) {
+            dinheiroInputs[indice].classList.add("valor-invalido");
+            quantidadeInputs[indice].classList.add("quantidade-invalida");
+        }
+    };
 
     // Atualiza a soma total
     const atualizarSomaTotal = () => {
@@ -52,19 +68,20 @@ document.addEventListener("DOMContentLoaded", () => {
         atualizarDiferenca(); // Atualiza a diferença
     };
 
+    // Atualiza a diferença entre soma total e acumuladores
     const atualizarDiferenca = () => {
         const somaTotalCentavos = parseInt(somaTotalInput.value.replace(/[^\d]/g, ""), 10) || 0; // Soma Total em centavos
         const acumuladoresCentavos = parseInt(acumuladoresInput.value.replace(/[^\d]/g, ""), 10) || 0; // Saldo contábil em centavos
-    
+
         const diferencaCentavos = somaTotalCentavos - acumuladoresCentavos; // Calcula a diferença
         const negativo = diferencaCentavos < 0; // Verifica se é negativo
         const positivo = diferencaCentavos > 0; // Verifica se é positivo
-    
+
         diferencaInput.value = formatarParaReais(Math.abs(diferencaCentavos).toString(), negativo); // Atualiza o campo de diferença
-    
+
         // Remove todas as classes de cor
         diferencaInput.classList.remove("diferenca-negativa", "diferenca-positiva");
-    
+
         // Aplica a classe CSS apropriada
         if (negativo) {
             diferencaInput.classList.add("diferenca-negativa");
@@ -72,6 +89,39 @@ document.addEventListener("DOMContentLoaded", () => {
             diferencaInput.classList.add("diferenca-positiva");
         }
     };
+
+    // Função para limpar todos os campos
+    const limparCampos = () => {
+        dinheiroInputs.forEach(input => input.value = "R$ 0,00");
+        quantidadeInputs.forEach(input => input.value = "0");
+        somaTotalInput.value = "R$ 0,00";
+        acumuladoresInput.value = "R$ 0,00";
+        diferencaInput.value = "R$ 0,00";
+
+        // Remove as classes de invalidez se houver
+        dinheiroInputs.forEach(input => input.classList.remove("valor-invalido"));
+        quantidadeInputs.forEach(input => input.classList.remove("quantidade-invalida"));
+
+        // Remove as classes de cor do campo "Diferença"
+        diferencaInput.classList.remove("diferenca-negativa", "diferenca-positiva");
+    };
+
+    // Adiciona evento ao botão "Limpar"
+    const botaoLimpar = document.getElementById("limpar");
+    botaoLimpar.addEventListener("click", () => {
+        limparCampos();
+    });
+
+    // Adiciona eventos de focus e blur para os inputs de quantidade
+    quantidadeInputs.forEach(input => {
+        input.addEventListener("focus", () => {
+            if (input.value === "0") input.value = ""; // Limpa se o valor for o placeholder inicial
+        });
+
+        input.addEventListener("blur", () => {
+            if (input.value === "") input.value = "0"; // Reverte ao placeholder inicial se vazio
+        });
+    });
 
     // Adiciona evento para atualizar a quantidade ao digitar o valor
     dinheiroInputs.forEach((input, index) => {
@@ -112,49 +162,5 @@ document.addEventListener("DOMContentLoaded", () => {
     // Formata o acumulador inicial se necessário
     acumuladoresInput.addEventListener("blur", () => {
         if (!acumuladoresInput.value) acumuladoresInput.value = "R$ 0,00";
-    });
-
-    const validarValor = (valor, indice) => {
-        const valorCentavos = parseInt(valor.replace(/[^\d]/g, ""), 10) || 0; // Valor em centavos
-        const quantidade = parseInt(quantidadeInputs[indice].value, 10) || 0; // Quantidade
-        const valorCalculado = quantidade * valores[indice]; // Valor total calculado em centavos
-    
-        // Remove as classes de invalidez antes de qualquer coisa
-        dinheiroInputs[indice].classList.remove("valor-invalido");
-        quantidadeInputs[indice].classList.remove("quantidade-invalida");
-    
-        // Verifica se o valor é possível com a quantidade
-        if (valorCentavos !== valorCalculado) {
-            dinheiroInputs[indice].classList.add("valor-invalido");
-            quantidadeInputs[indice].classList.add("quantidade-invalida");
-        }
-    };
-    
-    const limparCampos = () => {
-        dinheiroInputs.forEach(input => input.value = "R$ 0,00");
-        quantidadeInputs.forEach(input => input.value = "0");
-        somaTotalInput.value = "R$ 0,00";
-        acumuladoresInput.value = "R$ 0,00";
-        diferencaInput.value = "R$ 0,00";
-
-        // Remove as classes de invalidez se houver
-        dinheiroInputs.forEach(input => input.classList.remove("valor-invalido"));
-        quantidadeInputs.forEach(input => input.classList.remove("quantidade-invalida"));
-    };
-
-    // Adiciona evento ao botão "Limpar"
-    const botaoLimpar = document.getElementById("limpar");
-    botaoLimpar.addEventListener("click", () => {
-        limparCampos();
-    });
-
-    quantidadeInputs.forEach(input => {
-        input.addEventListener("focus", () => {
-            if (input.value === "0") input.value = ""; // Limpa se o valor for o placeholder inicial
-        });
-
-        input.addEventListener("blur", () => {
-            if (input.value === "") input.value = "0"; // Reverte ao placeholder inicial se vazio
-        });
     });
 });
