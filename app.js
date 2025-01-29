@@ -1,15 +1,12 @@
 document.addEventListener("DOMContentLoaded", () => {
-    // Seleciona todos os inputs de dinheiro, quantidade, soma total, acumuladores e diferença
     const dinheiroInputs = document.querySelectorAll(".input__dinheiro");
     const quantidadeInputs = document.querySelectorAll(".input__quantidade");
     const somaTotalInput = document.querySelector(".input__somatotal");
     const acumuladoresInput = document.querySelector(".input__acumuladores");
     const diferencaInput = document.querySelector(".input__diferenca");
 
-    // Mapeia os valores correspondentes às cédulas e moedas (em centavos)
     const valores = [200, 500, 1000, 2000, 5000, 10000, 20000, 5, 10, 25, 50, 100]; // Convertido para centavos
 
-    // Função para formatar o valor como moeda
     const formatarParaReais = (valor, negativo = false) => {
         const numero = Math.abs(parseFloat(valor.replace(/[^\d]/g, "")) / 100);
         if (isNaN(numero)) return "R$ 0,00";
@@ -17,72 +14,61 @@ document.addEventListener("DOMContentLoaded", () => {
         return negativo ? `- ${resultado}` : resultado;
     };
 
-    // Atualiza a quantidade com base no valor
     const atualizarQuantidade = (valor, indice) => {
-        let valorCentavos = parseInt(valor.replace(/[^\d]/g, ""), 10) || 0; // Valor em centavos
-        if (valorCentavos < 0) valorCentavos = 0; // Impede valores negativos
-        quantidadeInputs[indice].value = Math.floor(valorCentavos / valores[indice]); // Calcula a quantidade
-        atualizarSomaTotal(); // Atualiza a soma total
-        validarValor(valor, indice); // Valida o valor
+        let valorCentavos = parseInt(valor.replace(/[^\d]/g, ""), 10) || 0;
+        if (valorCentavos < 0) valorCentavos = 0;
+        quantidadeInputs[indice].value = Math.floor(valorCentavos / valores[indice]);
+        atualizarSomaTotal();
+        validarValor(valor, indice);
     };
 
-    // Atualiza o valor com base na quantidade
     const atualizarValor = (quantidade, indice) => {
-        let quantidadeNumerica = parseInt(quantidade, 10) || 0; // Quantidade como inteiro
-        if (quantidadeNumerica < 0) quantidadeNumerica = 0; // Impede valores negativos
-        const valorCalculado = quantidadeNumerica * valores[indice]; // Valor total em centavos
-        dinheiroInputs[indice].value = formatarParaReais(valorCalculado.toString()); // Formata o valor
-        atualizarSomaTotal(); // Atualiza a soma total
-        validarValor(dinheiroInputs[indice].value, indice); // Valida o valor
+        let quantidadeNumerica = parseInt(quantidade, 10) || 0;
+        if (quantidadeNumerica < 0) quantidadeNumerica = 0;
+        const valorCalculado = quantidadeNumerica * valores[indice];
+        dinheiroInputs[indice].value = formatarParaReais(valorCalculado.toString());
+        atualizarSomaTotal();
+        validarValor(dinheiroInputs[indice].value, indice);
     };
 
-    // Valida se o valor é possível com a quantidade de notas
     const validarValor = (valor, indice) => {
-        const valorCentavos = parseInt(valor.replace(/[^\d]/g, ""), 10) || 0; // Valor em centavos
-        const quantidade = parseInt(quantidadeInputs[indice].value, 10) || 0; // Quantidade
-        const valorCalculado = quantidade * valores[indice]; // Valor total calculado em centavos
+        const valorCentavos = parseInt(valor.replace(/[^\d]/g, ""), 10) || 0;
+        const quantidade = parseInt(quantidadeInputs[indice].value, 10) || 0;
+        const valorCalculado = quantidade * valores[indice];
 
-        // Remove as classes de invalidez antes de qualquer coisa
         dinheiroInputs[indice].classList.remove("valor-invalido");
         quantidadeInputs[indice].classList.remove("quantidade-invalida");
 
-        // Verifica se o valor é possível com a quantidade
         if (valorCentavos !== valorCalculado) {
             dinheiroInputs[indice].classList.add("valor-invalido");
             quantidadeInputs[indice].classList.add("quantidade-invalida");
         }
     };
 
-    // Atualiza a soma total
     const atualizarSomaTotal = () => {
         let somaTotalCentavos = 0;
 
-        // Percorre todas as quantidades e valores
         quantidadeInputs.forEach((input, index) => {
             const quantidade = parseInt(input.value, 10) || 0;
-            somaTotalCentavos += quantidade * valores[index]; // Soma os valores em centavos
+            somaTotalCentavos += quantidade * valores[index];
         });
 
-        // Atualiza o campo de soma total
         somaTotalInput.value = formatarParaReais(somaTotalCentavos.toString());
-        atualizarDiferenca(); // Atualiza a diferença
+        atualizarDiferenca();
     };
 
-    // Atualiza a diferença entre soma total e acumuladores
     const atualizarDiferenca = () => {
-        const somaTotalCentavos = parseInt(somaTotalInput.value.replace(/[^\d]/g, ""), 10) || 0; // Soma Total em centavos
-        const acumuladoresCentavos = parseInt(acumuladoresInput.value.replace(/[^\d]/g, ""), 10) || 0; // Saldo contábil em centavos
+        const somaTotalCentavos = parseInt(somaTotalInput.value.replace(/[^\d]/g, ""), 10) || 0;
+        const acumuladoresCentavos = parseInt(acumuladoresInput.value.replace(/[^\d]/g, ""), 10) || 0;
 
-        const diferencaCentavos = somaTotalCentavos - acumuladoresCentavos; // Calcula a diferença
-        const negativo = diferencaCentavos < 0; // Verifica se é negativo
-        const positivo = diferencaCentavos > 0; // Verifica se é positivo
+        const diferencaCentavos = somaTotalCentavos - acumuladoresCentavos;
+        const negativo = diferencaCentavos < 0;
+        const positivo = diferencaCentavos > 0;
 
-        diferencaInput.value = formatarParaReais(Math.abs(diferencaCentavos).toString(), negativo); // Atualiza o campo de diferença
+        diferencaInput.value = formatarParaReais(Math.abs(diferencaCentavos).toString(), negativo);
 
-        // Remove todas as classes de cor
         diferencaInput.classList.remove("diferenca-negativa", "diferenca-positiva");
 
-        // Aplica a classe CSS apropriada
         if (negativo) {
             diferencaInput.classList.add("diferenca-negativa");
         } else if (positivo) {
@@ -90,7 +76,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     };
 
-    // Função para limpar todos os campos
     const limparCampos = () => {
         dinheiroInputs.forEach(input => input.value = "R$ 0,00");
         quantidadeInputs.forEach(input => input.value = "0");
@@ -98,69 +83,68 @@ document.addEventListener("DOMContentLoaded", () => {
         acumuladoresInput.value = "R$ 0,00";
         diferencaInput.value = "R$ 0,00";
 
-        // Remove as classes de invalidez se houver
         dinheiroInputs.forEach(input => input.classList.remove("valor-invalido"));
         quantidadeInputs.forEach(input => input.classList.remove("quantidade-invalida"));
 
-        // Remove as classes de cor do campo "Diferença"
         diferencaInput.classList.remove("diferenca-negativa", "diferenca-positiva");
     };
 
-    // Adiciona evento ao botão "Limpar"
     const botaoLimpar = document.getElementById("limpar");
     botaoLimpar.addEventListener("click", () => {
         limparCampos();
     });
 
-    // Adiciona eventos de focus e blur para os inputs de quantidade
     quantidadeInputs.forEach(input => {
         input.addEventListener("focus", () => {
-            if (input.value === "0") input.value = ""; // Limpa se o valor for o placeholder inicial
+            if (input.value === "0") input.value = "";
         });
 
         input.addEventListener("blur", () => {
-            if (input.value === "") input.value = "0"; // Reverte ao placeholder inicial se vazio
+            if (input.value === "") input.value = "0";
         });
     });
 
-    // Adiciona eventos de focus e blur para os inputs de valor
     dinheiroInputs.forEach((input, index) => {
         input.addEventListener("focus", () => {
-            if (input.value === "R$ 0,00") input.value = ""; // Limpa se o valor for o placeholder inicial
+            if (input.value === "R$ 0,00") input.value = "";
         });
 
         input.addEventListener("blur", () => {
-            if (input.value === "") input.value = "R$ 0,00"; // Reverte ao placeholder inicial se vazio
+            if (input.value === "") input.value = "R$ 0,00";
         });
 
-        // Adiciona evento para atualizar a quantidade ao digitar o valor
         input.addEventListener("input", () => {
-            const cursorPos = input.selectionStart; // Posição do cursor antes da alteração
-            const valorSemFormatacao = input.value.replace(/[^\d]/g, ""); // Remove caracteres não numéricos
+            const cursorPos = input.selectionStart;
+            const valorSemFormatacao = input.value.replace(/[^\d]/g, "");
             input.value = formatarParaReais(valorSemFormatacao);
-            const diferenca = input.value.length - valorSemFormatacao.length; // Ajusta posição do cursor
+            const diferenca = input.value.length - valorSemFormatacao.length;
             input.setSelectionRange(cursorPos + diferenca, cursorPos + diferenca);
 
             atualizarQuantidade(input.value, index);
         });
 
-        // Formata o valor inicial se necessário
         input.addEventListener("blur", () => {
             if (!input.value) input.value = "R$ 0,00";
         });
     });
 
-    // Adiciona evento para atualizar o valor ao digitar a quantidade
     quantidadeInputs.forEach((input, index) => {
         input.addEventListener("input", () => {
             atualizarValor(input.value, index);
         });
     });
 
-    // Adiciona evento para atualizar a diferença ao digitar o acumulador
     acumuladoresInput.addEventListener("input", () => {
-        const cursorPos = acumuladoresInput.selectionStart; // Posição do cursor antes da alteração
-        const valorSemFormatacao = acumuladoresInput.value.replace(/[^\d]/g, ""); // Remove caracteres não numéricos
+        const cursorPos = acumuladoresInput.selectionStart;
+        const valorSemFormatacao = acumuladoresInput.value.replace(/[^\d]/g, "");
         acumuladoresInput.value = formatarParaReais(valorSemFormatacao);
-        const diferenca = acumuladoresInput.value.length - valorSemFormatacao.length; // Ajusta posição do cursor
-        acumuladoresInput
+        const diferenca = acumuladoresInput.value.length - valorSemFormatacao.length;
+        acumuladoresInput.setSelectionRange(cursorPos + diferenca, cursorPos + diferenca);
+
+        atualizarDiferenca();
+    });
+
+    acumuladoresInput.addEventListener("blur", () => {
+        if (!acumuladoresInput.value) acumuladoresInput.value = "R$ 0,00";
+    });
+});
