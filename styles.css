@@ -139,3 +139,9 @@ body {
     border: 2px solid #00ff00; /* Verde forte */
 }
 
+.valor-invalido, .quantidade-invalida {
+    background-color: #ffcccb; /* Vermelho claro */
+    border: 2px solid #ff0000; /* Vermelho forte */
+}
+
+

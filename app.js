@@ -22,15 +22,18 @@ document.addEventListener("DOMContentLoaded", () => {
         if (valorCentavos < 0) valorCentavos = 0; // Impede valores negativos
         quantidadeInputs[indice].value = Math.floor(valorCentavos / valores[indice]); // Calcula a quantidade
         atualizarSomaTotal(); // Atualiza a soma total
+        validarValor(valor, indice); // Valida o valor
     };
     
- const atualizarValor = (quantidade, indice) => {
-    let quantidadeNumerica = parseInt(quantidade, 10) || 0; // Quantidade como inteiro
-    if (quantidadeNumerica < 0) quantidadeNumerica = 0; // Impede valores negativos
-    const valorCalculado = quantidadeNumerica * valores[indice]; // Valor total em centavos
-    dinheiroInputs[indice].value = formatarParaReais(valorCalculado.toString()); // Formata o valor
-    atualizarSomaTotal(); // Atualiza a soma total
-};
+    const atualizarValor = (quantidade, indice) => {
+        let quantidadeNumerica = parseInt(quantidade, 10) || 0; // Quantidade como inteiro
+        if (quantidadeNumerica < 0) quantidadeNumerica = 0; // Impede valores negativos
+        const valorCalculado = quantidadeNumerica * valores[indice]; // Valor total em centavos
+        dinheiroInputs[indice].value = formatarParaReais(valorCalculado.toString()); // Formata o valor
+        atualizarSomaTotal(); // Atualiza a soma total
+        validarValor(dinheiroInputs[indice].value, indice); // Valida o valor
+    };
+    
 
     
 
@@ -110,4 +113,21 @@ document.addEventListener("DOMContentLoaded", () => {
     acumuladoresInput.addEventListener("blur", () => {
         if (!acumuladoresInput.value) acumuladoresInput.value = "R$ 0,00";
     });
+
+    const validarValor = (valor, indice) => {
+        const valorCentavos = parseInt(valor.replace(/[^\d]/g, ""), 10) || 0; // Valor em centavos
+        const quantidade = parseInt(quantidadeInputs[indice].value, 10) || 0; // Quantidade
+        const valorCalculado = quantidade * valores[indice]; // Valor total calculado em centavos
+    
+        // Remove as classes de invalidez antes de qualquer coisa
+        dinheiroInputs[indice].classList.remove("valor-invalido");
+        quantidadeInputs[indice].classList.remove("quantidade-invalida");
+    
+        // Verifica se o valor é possível com a quantidade
+        if (valorCentavos !== valorCalculado) {
+            dinheiroInputs[indice].classList.add("valor-invalido");
+            quantidadeInputs[indice].classList.add("quantidade-invalida");
+        }
+    };
+    
 });
