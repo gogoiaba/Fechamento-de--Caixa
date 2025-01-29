@@ -113,7 +113,9 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
         input.addEventListener("blur", () => {
-            if (input.value === "") input.value = valorOriginal;
+            if (input.value === "" || input.value === "R$ 0,00") {
+                input.value = valorOriginal;
+            }
         });
 
         input.addEventListener("input", () => {
