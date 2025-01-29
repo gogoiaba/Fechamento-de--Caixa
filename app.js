@@ -94,13 +94,22 @@ document.addEventListener("DOMContentLoaded", () => {
         limparCampos();
     });
 
-    quantidadeInputs.forEach(input => {
+    quantidadeInputs.forEach((input, index) => {
+        let valorOriginal;
+
         input.addEventListener("focus", () => {
+            valorOriginal = input.value;
             if (input.value === "0") input.value = "";
         });
 
         input.addEventListener("blur", () => {
-            if (input.value === "") input.value = "0";
+            if (input.value === "" || input.value === "0") {
+                input.value = valorOriginal;
+            }
+        });
+
+        input.addEventListener("input", () => {
+            atualizarValor(input.value, index);
         });
     });
 
@@ -126,16 +135,6 @@ document.addEventListener("DOMContentLoaded", () => {
             input.setSelectionRange(cursorPos + diferenca, cursorPos + diferenca);
 
             atualizarQuantidade(input.value, index);
-        });
-
-        input.addEventListener("blur", () => {
-            if (!input.value) input.value = valorOriginal;
-        });
-    });
-
-    quantidadeInputs.forEach((input, index) => {
-        input.addEventListener("input", () => {
-            atualizarValor(input.value, index);
         });
     });
 
