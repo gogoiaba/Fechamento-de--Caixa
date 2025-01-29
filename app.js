@@ -147,4 +147,14 @@ document.addEventListener("DOMContentLoaded", () => {
     botaoLimpar.addEventListener("click", () => {
         limparCampos();
     });
+
+    quantidadeInputs.forEach(input => {
+        input.addEventListener("focus", () => {
+            if (input.value === "0") input.value = ""; // Limpa se o valor for o placeholder inicial
+        });
+
+        input.addEventListener("blur", () => {
+            if (input.value === "") input.value = "0"; // Reverte ao placeholder inicial se vazio
+        });
+    });
 });
