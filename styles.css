@@ -100,8 +100,17 @@ body {
 }
 
 
+.input__quantidade {
+    width: 80px; /* Definindo uma largura menor para a quantidade */
+    padding: 0.5rem;
+    font-size: 18px;
+    border-radius: 5px;
+    border: 1px solid #333;
+    text-align: center;
+}
+
 .input__dinheiro {
-    width: 100%;
+    width: 100%; /* Mantendo a largura completa para valor */
     padding: 0.5rem;
     font-size: 18px;
     border-radius: 5px;
@@ -109,14 +118,6 @@ body {
     text-align: center;
 }
 
-.input__quantidade {
-    width: 100%;
-    padding: 0.5rem;
-    font-size: 18px;
-    border-radius: 5px;
-    border: 1px solid #333;
-    text-align: center;
-}
 
 .subtitulo__moedas {
     margin-top: 2rem;
@@ -137,3 +138,4 @@ body {
     background-color: #ccffcc; /* Verde claro */
     border: 2px solid #00ff00; /* Verde forte */
 }
+
