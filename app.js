@@ -105,12 +105,15 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     dinheiroInputs.forEach((input, index) => {
+        let valorOriginal;
+
         input.addEventListener("focus", () => {
+            valorOriginal = input.value;
             if (input.value === "R$ 0,00") input.value = "";
         });
 
         input.addEventListener("blur", () => {
-            if (input.value === "") input.value = "R$ 0,00";
+            if (input.value === "") input.value = valorOriginal;
         });
 
         input.addEventListener("input", () => {
@@ -124,7 +127,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
         input.addEventListener("blur", () => {
-            if (!input.value) input.value = "R$ 0,00";
+            if (!input.value) input.value = valorOriginal;
         });
     });
 
