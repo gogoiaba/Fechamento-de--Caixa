@@ -17,20 +17,22 @@ document.addEventListener("DOMContentLoaded", () => {
         return negativo ? `- ${resultado}` : resultado;
     };
 
-    // Atualiza a quantidade com base no valor
     const atualizarQuantidade = (valor, indice) => {
-        const valorCentavos = parseInt(valor.replace(/[^\d]/g, ""), 10) || 0; // Valor em centavos
+        let valorCentavos = parseInt(valor.replace(/[^\d]/g, ""), 10) || 0; // Valor em centavos
+        if (valorCentavos < 0) valorCentavos = 0; // Impede valores negativos
         quantidadeInputs[indice].value = Math.floor(valorCentavos / valores[indice]); // Calcula a quantidade
         atualizarSomaTotal(); // Atualiza a soma total
     };
+    
+ const atualizarValor = (quantidade, indice) => {
+    let quantidadeNumerica = parseInt(quantidade, 10) || 0; // Quantidade como inteiro
+    if (quantidadeNumerica < 0) quantidadeNumerica = 0; // Impede valores negativos
+    const valorCalculado = quantidadeNumerica * valores[indice]; // Valor total em centavos
+    dinheiroInputs[indice].value = formatarParaReais(valorCalculado.toString()); // Formata o valor
+    atualizarSomaTotal(); // Atualiza a soma total
+};
 
-    // Atualiza o valor com base na quantidade
-    const atualizarValor = (quantidade, indice) => {
-        const quantidadeNumerica = parseInt(quantidade, 10) || 0; // Quantidade como inteiro
-        const valorCalculado = quantidadeNumerica * valores[indice]; // Valor total em centavos
-        dinheiroInputs[indice].value = formatarParaReais(valorCalculado.toString()); // Formata o valor
-        atualizarSomaTotal(); // Atualiza a soma total
-    };
+    
 
     // Atualiza a soma total
     const atualizarSomaTotal = () => {
